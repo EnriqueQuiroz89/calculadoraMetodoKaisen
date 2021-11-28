@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title> Form Kaisen</title>
+    <style>
+        .formulario {
+            width: 30%;
+            margin: 20px auto;
+            background: linear-gradient(180deg, palegreen, lightyellow);
+            padding: 30px;
+            font-size: large;
+        }
+
+
+
+        h3 {
+            width: auto;
+            position: relative;
+            margin: 10px 50%;
+            font-weight: bolder;
+            font-size: x-large;
+        }
+
+        #resultado {
+            width: 40%;
+            margin: 20px auto;
+            padding: 15px 50px;
+            background: linear-gradient(180deg, palegreen, lightyellow);
+            min-height: 100px;
+        }
+    </style>
+
+
+
+
+
+<body>
+
+    <h3>Metodo Kaysen</h3>
+
+    <div class="formulario">
+        <form action="">
+            <p>
+                <label for="nombre">Nombra tu meta:
+                    <input id="nombre" type="text">
+                </label>
+            </p>
+            <p>
+                <label for="tiempo-inicial">
+                    Minutos dedidados inicialmente:
+                    <input id="tiempo-inicial" type="number"> min.
+                </label>
+            </p>
+            <p>
+                <label for="incremento">Cuanto quieres incrementar cada dia:
+                    <input id="incremento" type="number"> %
+                </label>
+            </p>
+
+            <p>
+                <label for="dias">Cuantos dias vas a realizarlo:
+                    <input id="dias" type="number"> dias
+                </label>
+            </p>
+
+            <button id="boton" type="button">Hacer mi planeación</button>
+
+        </form>
+    </div>
+
+
+    <h3>Aqui tu planeacion</h2>
+
+        <ul id="resultado"></ul>
+
+        <script>
+           
+            let boton = document.querySelector("#boton");
+            let formulario = document.querySelector("#nombre");
+            let resultado = document.querySelector("#resultado");
+
+            let listar = () => {
+                resultado.innerHTML = "";
+                let tiempoInicial = parseInt(document.getElementById("tiempo-inicial").value,10);
+                let incremento = document.getElementById("incremento").value;
+                let dias = document.getElementById("dias").value;
+
+                if (Number.isInteger(parseInt(dias, 10)) ) {
+                    dias = parseInt(dias, 10);
+                    for (let index = 0; index < dias; index++) {
+
+                        let porcentaje = (tiempoInicial/100)*incremento;
+                        tiempoInicial += porcentaje; 
+                        let  minutos = Number.parseInt(tiempoInicial);
+
+                        let segundos = (tiempoInicial - Number.parseInt(tiempoInicial,10))*60;
+                        segundos= Number.parseInt(segundos,10)
+                        
+                        resultado.innerHTML += `<li>Dia ${index} --->  ${minutos} minutos y ${segundos} segundos</li>`;
+
+                    }
+                } else {
+                    resultado.innerHTML += `<li> Dias no es numero</li>`;
+                }
+
+            };
+
+            // formulario.addEventListener("keyup", listar);
+            boton.addEventListener("click", listar)
+
+        </script>
+
+</body>
+</head>
+
+</html>
